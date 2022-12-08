@@ -1,10 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import Dockerode, { ContainerStats } from 'dockerode';
 import * as Docker from 'dockerode';
+import * as Fs from 'node:fs';
+import * as Path from 'node:path';
+import { FormatterService } from '../formatter/formatter.service';
+
 @Injectable()
 export class DockerService {
   private instance: Docker;
-  constructor(private configService: ConfigService) {
+  constructor(private configService: ConfigService, private formatterService: FormatterService) {
     this.instance = new Docker({
       host: configService.getOrThrow('TARGET_DOCKER_HOST'),
       port: configService.getOrThrow('TARGET_DOCKER_PORT'),
@@ -14,17 +19,48 @@ export class DockerService {
   public async stats() {
     const containers = await this.instance.listContainers();
     const result = await Promise.all(
-      containers.map(async (c, i) => {
+      containers.map(async (c) => {
         const container = await this.instance.getContainer(c.Id);
-        const instanceStats = await container.stats({ stream: false, 'one-shot': true });
-        if (i === 0) {
-          console.log('1', instanceStats);
-        }
+        const instanceStats = await container.stats({ stream: false });
 
-        return { memory: instanceStats.memory_stats.usage, memoryMax: instanceStats.memory_stats.max_usage };
+        return {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          id: instanceStats.id,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          name: instanceStats.name.replace('/', ''),
+          memory: {
+            usage: this.formatterService.formatByte(instanceStats.memory_stats.usage, false),
+            limit: this.formatterService.formatByte(instanceStats.memory_stats.limit),
+            percentage: this.formatterService.formatPercentage(
+              instanceStats.memory_stats.usage,
+              instanceStats.memory_stats.limit,
+            ),
+          },
+          cpuUsage: this.formatterService.formatPercentage(
+            this.getCpuDelta(instanceStats),
+            this.getSystemDelta(instanceStats),
+          ),
+          raw: instanceStats,
+        };
       }),
     );
-    console.log('stats1', result);
+
+    const raw = result.map((res) => res.raw);
+    Fs.writeFileSync(Path.join(process.cwd(), 'dist', 'stats.json'), JSON.stringify(raw));
     return result;
+  }
+
+  public getCpuDelta(stat: Dockerode.ContainerStats) {
+    return stat.cpu_stats.cpu_usage.total_usage - stat.precpu_stats.cpu_usage.total_usage;
+  }
+
+  public getSystemDelta(stat: Dockerode.ContainerStats) {
+    return stat.cpu_stats.system_cpu_usage - stat.precpu_stats.system_cpu_usage;
+  }
+
+  public async info() {
+    return this.instance.info();
   }
 }

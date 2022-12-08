@@ -1,15 +1,11 @@
-import { Module, OnModuleInit } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { FormatterModule } from '../formatter/formatter.module';
 import { DockerService } from './docker.service';
 
 @Module({
-  imports: [ConfigModule.forRoot({})],
-  providers: [DockerService, ConfigModule],
+  imports: [ConfigModule.forRoot({}), FormatterModule],
+  providers: [DockerService],
+  exports: [DockerService],
 })
-export class DockerModule implements OnModuleInit {
-  constructor(private dockerService: DockerService) {}
-
-  onModuleInit(): void {
-    this.dockerService.stats();
-  }
-}
+export class DockerModule {}

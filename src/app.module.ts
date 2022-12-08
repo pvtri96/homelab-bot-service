@@ -1,13 +1,21 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
+import { ScheduleModule } from '@nestjs/schedule';
 import { AppService } from './app.service';
+import { DockerService } from './docker/docker.service';
 import { TelegramBotModule } from './telegram-bot/telegram-bot.module';
 import { DockerModule } from './docker/docker.module';
+import { TelegramBotService } from './telegram-bot/telegram-bot.service';
+import { FormatterModule } from './formatter/formatter.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({}), TelegramBotModule, DockerModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [ConfigModule.forRoot({}), ScheduleModule.forRoot(), TelegramBotModule, DockerModule, FormatterModule],
+  providers: [AppService, DockerService, TelegramBotService],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+  constructor(private appService: AppService) {}
+  onModuleInit() {
+    console.log('sent');
+    this.appService.analyzeStats();
+  }
+}
