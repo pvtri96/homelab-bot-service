@@ -64,7 +64,6 @@ export class DockerService {
   public async temperature() {
     const temperature = await SI.cpuTemperature();
 
-    console.log('temp 2', temperature);
     if (!temperature.main) {
       return 'Unknown';
     }

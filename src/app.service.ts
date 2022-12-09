@@ -7,8 +7,7 @@ import { TelegramBotService } from './telegram-bot/telegram-bot.service';
 export class AppService {
   constructor(private dockerService: DockerService, private telegramBotService: TelegramBotService) {}
 
-  // @Cron('0 30 * * * *')
-  @Cron('45 * * * * *')
+  @Cron('0 30 * * * *')
   async analyzeStats() {
     const stats = await this.dockerService.stats();
     const temperature = await this.dockerService.temperature();

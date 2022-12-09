@@ -1,5 +1,5 @@
 import { Module, OnModuleInit } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { AppService } from './app.service';
 import { DockerService } from './docker/docker.service';
@@ -13,9 +13,8 @@ import { FormatterModule } from './formatter/formatter.module';
   providers: [AppService, DockerService, TelegramBotService],
 })
 export class AppModule implements OnModuleInit {
-  constructor(private appService: AppService) {}
+  constructor(private appService: AppService, private configService: ConfigService) {}
   onModuleInit() {
-    console.log('sent');
-    this.appService.analyzeStats();
+    if (this.configService.get('DEBUG')) this.appService.analyzeStats();
   }
 }
