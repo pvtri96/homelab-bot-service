@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import Dockerode, { ContainerStats } from 'dockerode';
+import Dockerode from 'dockerode';
+import * as SI from 'systeminformation';
 import * as Docker from 'dockerode';
 import * as Fs from 'node:fs';
 import * as Path from 'node:path';
@@ -60,7 +61,13 @@ export class DockerService {
     return stat.cpu_stats.system_cpu_usage - stat.precpu_stats.system_cpu_usage;
   }
 
-  public async info() {
-    return this.instance.info();
+  public async temperature() {
+    const temperature = await SI.cpuTemperature();
+
+    console.log('temp 2', temperature);
+    if (!temperature.main) {
+      return 'Unknown';
+    }
+    return temperature.main + '°C';
   }
 }

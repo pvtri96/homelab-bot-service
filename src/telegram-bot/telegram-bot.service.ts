@@ -42,7 +42,7 @@ export class TelegramBotService {
     return result;
   }
 
-  public sendStats(stats: DockerInstanceStats) {
+  public sendStats(stats: DockerInstanceStats, temperature: string) {
     let totalUsage = 0;
     let systemMax = 0;
 
@@ -66,7 +66,8 @@ export class TelegramBotService {
     const caption = `
       Docker containers summary:
       CPU: ${formatPercentage(totalCpuDelta, totalSystemDelta)}
-      Memory: ${formatPercentage(totalUsage, systemMax)} \\- ${memory} 
+      Memory: ${formatPercentage(totalUsage, systemMax)} \\- ${memory}
+      Temperature: ${temperature}
     `;
     const image = toImage(table(tableStats));
 

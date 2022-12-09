@@ -11,6 +11,7 @@ export class AppService {
   @Cron('45 * * * * *')
   async analyzeStats() {
     const stats = await this.dockerService.stats();
-    await this.telegramBotService.sendStats(stats);
+    const temperature = await this.dockerService.temperature();
+    await this.telegramBotService.sendStats(stats, temperature);
   }
 }
