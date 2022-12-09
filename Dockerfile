@@ -1,5 +1,10 @@
 # Base image
-FROM node:16-alpine AS development
+FROM node:16-alpine AS base
+
+RUN apk add --no-cache --virtual .build-deps build-base g++ cairo-dev jpeg-dev pango-dev giflib-dev \
+    && apk add --no-cache --virtual .runtime-deps cairo jpeg pango giflib
+
+FROM base AS development
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -14,7 +19,7 @@ COPY --chown=node:node . .
 
 USER node
 
-FROM node:16-alpine As build
+FROM base As build
 
 WORKDIR /usr/src/app
 
@@ -34,7 +39,7 @@ RUN npm ci --only=production && npm cache clean --force
 
 USER node
 
-FROM node:16-alpine As production
+FROM base As production
 
 # Copy the bundled code from the build stage to the production image
 COPY --chown=node:node --from=build /usr/src/app/node_modules ./node_modules
