@@ -6,6 +6,7 @@ import * as Docker from 'dockerode';
 import * as Fs from 'node:fs';
 import * as Path from 'node:path';
 import { FormatterService } from '../formatter/formatter.service';
+import { DockerContainerInstanceState } from './docker.interface';
 
 @Injectable()
 export class DockerService {
@@ -23,11 +24,11 @@ export class DockerService {
       containers.map(async (c) => {
         const container = await this.instance.getContainer(c.Id);
         const instanceStats = await container.stats({ stream: false });
-
         return {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           id: instanceStats.id,
+          state: c.State as DockerContainerInstanceState,
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           name: instanceStats.name.replace('/', ''),

@@ -1,5 +1,5 @@
 # Base image
-FROM node:16-alpine AS base
+FROM node:18-alpine AS base
 
 RUN apk add --no-cache --virtual .build-deps build-base g++ cairo-dev jpeg-dev pango-dev giflib-dev \
     && apk add --no-cache --virtual .runtime-deps cairo jpeg pango giflib

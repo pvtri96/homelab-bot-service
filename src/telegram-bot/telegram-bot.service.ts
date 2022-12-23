@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import * as TelegramBot from 'node-telegram-bot-api';
 import { table } from 'table';
 import { Stream } from 'stream';
-import { DockerInstanceStats } from '../docker/docker.interface';
+import { DockerContainerInstanceStats } from '../docker/docker.interface';
 import { DockerService } from '../docker/docker.service';
 import { FormatterService } from '../formatter/formatter.service';
 
@@ -42,7 +42,7 @@ export class TelegramBotService {
     return result;
   }
 
-  public sendStats(stats: DockerInstanceStats, temperature: string) {
+  public sendStats(stats: DockerContainerInstanceStats, temperature: string) {
     let totalUsage = 0;
     let systemMax = 0;
 

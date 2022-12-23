@@ -15,6 +15,9 @@ import { FormatterModule } from './formatter/formatter.module';
 export class AppModule implements OnModuleInit {
   constructor(private appService: AppService, private configService: ConfigService) {}
   onModuleInit() {
-    if (this.configService.get('DEBUG')) this.appService.analyzeStats();
+    if (this.configService.get('DEBUG')) {
+      this.appService.analyzeStats();
+      this.appService.healthCheck();
+    }
   }
 }
