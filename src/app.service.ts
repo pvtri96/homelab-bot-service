@@ -30,7 +30,7 @@ export class AppService {
     if (!healthCheckPathEnv) {
       return;
     }
-    const healthCheckPath = Path.join(process.cwd(), healthCheckPathEnv);
+    const healthCheckPath = Path.join(healthCheckPathEnv);
     if (!Fs.existsSync(healthCheckPath)) {
       throw new Error(`File "${healthCheckPath}" not found! Given HEALTHCHECK_CONFIG_PATH=${healthCheckPathEnv}`);
     }
