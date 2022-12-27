@@ -1,0 +1,23 @@
+name: ci
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build --if-present
+      - name: pretest
+        run: cp healthcheck.config.example.json healthcheck.config.json && cp .env.example .env
+      - run: npm test
+        env:
+          TARGET_DOCKER_HOST: host
+          TARGET_DOCKER_PORT: 2996
+          TELEGRAM_BOT_TOKEN: HASHTOKEN

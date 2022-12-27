@@ -36,4 +36,4 @@ lerna-debug.log*
 
 # Project
 .env
-healthchecks.config.json
+healthcheck.config.json

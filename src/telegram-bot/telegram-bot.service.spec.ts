@@ -1,4 +1,7 @@
+import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
+import { DockerModule } from '../docker/docker.module';
+import { FormatterModule } from '../formatter/formatter.module';
 import { TelegramBotService } from './telegram-bot.service';
 
 describe('TelegramBotService', () => {
@@ -6,6 +9,7 @@ describe('TelegramBotService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [ConfigModule.forRoot({}), DockerModule, FormatterModule],
       providers: [TelegramBotService],
     }).compile();
 
