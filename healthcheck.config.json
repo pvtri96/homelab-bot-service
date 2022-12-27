@@ -1,0 +1,16 @@
+{
+  "pingKey": "qigKMmANZGeMfr_2ZsiUvw",
+  "baseUrl": "https://hc-ping.com",
+  "services": {
+    "cloudflared": {
+    },
+    "adguard": {
+    },
+    "homelab-bot": {
+    },
+    "zu-main": {
+    },
+    "zu-controller": {
+    }
+  }
+}
