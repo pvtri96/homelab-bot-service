@@ -14,7 +14,10 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run build --if-present
+      - name: pretest
+        run: cp healthcheck.config.example.json healthcheck.config.json && cp .env.example .env
       - run: npm test
         env:
           TARGET_DOCKER_HOST: host
           TARGET_DOCKER_PORT: 2996
+          TELEGRAM_BOT_TOKEN: HASHTOKEN
