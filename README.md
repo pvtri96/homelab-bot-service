@@ -9,7 +9,7 @@ By reading containers info, the service can
 * Send healthcheck signal via https://healthchecks.io/
 * Send daily reports via a Telegram bot
 
-<img src="./telegram_message.jpeg" alt="Telegram message example" height="200"/>
+    <img src="./telegram_message.jpeg" alt="Telegram message example" height="400"/>
 
 ## Setup
 
