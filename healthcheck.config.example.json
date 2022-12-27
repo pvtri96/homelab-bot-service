@@ -1,17 +1,16 @@
 {
-  "cloudflared": {
-    "url": "https://hc-ping.com/<uid>"
-  },
-  "adguard": {
-    "url": "https://hc-ping.com/<uid>"
-  },
-  "homelab-bot": {
-    "url": "https://hc-ping.com/<uid>"
-  },
-  "zu-main": {
-    "url": "https://hc-ping.com/<uid>"
-  },
-  "zu-controller": {
-    "url": "https://hc-ping.com/<uid>"
+  "pingKey": "",
+  "baseUrl": "https://hc-ping.com",
+  "services": {
+    "cloudflared": {
+    },
+    "adguard": {
+    },
+    "homelab-bot": {
+    },
+    "zu-main": {
+    },
+    "zu-controller": {
+    }
   }
 }
