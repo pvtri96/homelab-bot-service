@@ -48,5 +48,3 @@ COPY --chown=node:node --from=build /usr/src/app/resources ./resources
 
 # Start the server using the production build
 CMD [ "node", "dist/main.js" ]
-
-

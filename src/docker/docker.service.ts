@@ -12,10 +12,14 @@ import { DockerContainerInstanceState } from './docker.interface';
 export class DockerService {
   private instance: Docker;
   constructor(private configService: ConfigService, private formatterService: FormatterService) {
-    this.instance = new Docker({
-      host: configService.getOrThrow('TARGET_DOCKER_HOST'),
-      port: configService.getOrThrow('TARGET_DOCKER_PORT'),
-    });
+    if (configService.get('TARGET_DOCKER_HOST')) {
+      this.instance = new Docker({
+        host: configService.getOrThrow('TARGET_DOCKER_HOST'),
+        port: configService.getOrThrow('TARGET_DOCKER_PORT'),
+      });
+    } else {
+      this.instance = new Docker();
+    }
   }
 
   public async stats() {

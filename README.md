@@ -38,12 +38,11 @@ services:
     network_mode: host
     volumes:
       - ./healthcheck.config.json:/etc/homelab-bot/healthcheck.config.json
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN
       - TELEGRAM_CHANNEL_ID=$TELEGRAM_CHANNEL_ID
-      - TARGET_DOCKER_HOST=$TARGET_DOCKER_HOST
-      - TARGET_DOCKER_PORT=$TARGET_DOCKER_PORT
       - HEALTHCHECK_CONFIG_PATH=/etc/homelab-bot/healthcheck.config.json
       - HEALTHCHECK_API_KEY=$HEALTHCHECK_API_KEY
-      - DEBUG=1
+      - DEBUG=1 # This will force running the cronjob right after service is initialized
 ```
