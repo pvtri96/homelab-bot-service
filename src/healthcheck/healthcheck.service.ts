@@ -31,6 +31,18 @@ export class HealthcheckService {
       this.logger.log(`Check for "${checkName}" not found, creating one.`);
       await this.createCheck(apiKey, checkName);
     }
+
+    const orphanChecks: string[] = [];
+    for (const check of checks) {
+      if (!this.config.services[check.name]) {
+        orphanChecks.push(check.update_url);
+      }
+    }
+
+    for (const url of orphanChecks) {
+      this.logger.log(`Check "${url}" is no longer listed, removing it.`);
+      await this.removeCheck(apiKey, url);
+    }
   }
 
   private async getChecks(apiKey: string) {
@@ -46,6 +58,10 @@ export class HealthcheckService {
       headers: { 'X-Api-Key': apiKey },
       body: JSON.stringify({ name, schedule: '0 * * * *' }),
     }).then((res) => res.json());
+  }
+
+  private async removeCheck(apiKey: string, url: string) {
+    await fetch(url, { method: 'DELETE', headers: { 'X-Api-Key': apiKey } }).then((res) => res.json());
   }
 
   public async check(stats: DockerContainerInstanceStats) {
@@ -93,4 +109,5 @@ interface Check {
   desc: string;
   grace: number;
   status: 'new' | 'up' | 'grace' | 'down' | 'paused';
+  update_url: string;
 }
