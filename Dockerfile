@@ -32,7 +32,7 @@ COPY --chown=node:node backend/package*.json ./backend/
 COPY --chown=node:node --from=development /usr/src/app/backend/node_modules ./backend/node_modules
 
 # TODO: Frontend
-COPY --chown=node:node backend .
+COPY --chown=node:node backend ./backend
 
 # TODO: Frontend
 # Creates a "dist" folder with the production build
