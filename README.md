@@ -19,9 +19,6 @@ By reading containers info, the service can
 TELEGRAM_BOT_TOKEN=
 TELEGRAM_CHANNEL_ID=
 
-TARGET_DOCKER_HOST=
-TARGET_DOCKER_PORT=
-
 HEALTHCHECK_API_KEY=
 ```
 
