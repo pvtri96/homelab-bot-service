@@ -10,14 +10,14 @@ FROM base AS development
 WORKDIR /usr/src/app
 
 # TODO: Frontend
-COPY --chown=node:node backend/package*.json ./backend
+COPY --chown=node:node backend/package*.json ./backend/
 
 # TODO: Frontend
 # Install app dependencies
 RUN npm ci --prefix backend
 
 # Bundle app source
-COPY --chown=node:node . .
+COPY --chown=node:node . ./backend/
 
 USER node
 
@@ -26,17 +26,17 @@ FROM base As build
 WORKDIR /usr/src/app
 
 # TODO: Frontend
-COPY --chown=node:node backend/package*.json ./backend
+COPY --chown=node:node backend/package*.json ./backend/
 
 # TODO: Frontend
 COPY --chown=node:node --from=development /usr/src/app/backend/node_modules ./backend/node_modules
 
 # TODO: Frontend
-COPY --chown=node:node backend .
+COPY --chown=node:node backend ./backend
 
 # TODO: Frontend
 # Creates a "dist" folder with the production build
-RUN npm run build
+RUN npm run build --prefix backend
 
 ENV NODE_ENV production
 

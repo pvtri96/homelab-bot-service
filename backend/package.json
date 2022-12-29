@@ -1,5 +1,5 @@
 {
-  "name": "homelab-bot-service",
+  "name": "homelab-bot-backend",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -62,7 +62,7 @@
     "typescript": "^4.7.4"
   },
   "engines": {
-    "npm": "9.x",
+    "npm": "8.x",
     "node": "18.x"
   },
   "jest": {
