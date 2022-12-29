@@ -2,6 +2,10 @@ name: ci
 
 on: [push, pull_request]
 
+defaults:
+  run:
+    working-directory: ./backend
+
 jobs:
   test:
     runs-on: ubuntu-latest
