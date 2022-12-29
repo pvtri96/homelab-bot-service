@@ -12,14 +12,12 @@ WORKDIR /usr/src/app
 # TODO: Frontend
 COPY --chown=node:node backend/package*.json ./backend/
 
-RUN ls -a . && echo Hello && ls -a ./backend
-
 # TODO: Frontend
 # Install app dependencies
-RUN npm ci --prefix ./backend
+RUN npm ci --prefix ./backend/
 
 # Bundle app source
-COPY --chown=node:node . .
+COPY --chown=node:node . ./backend/
 
 USER node
 
@@ -28,7 +26,7 @@ FROM base As build
 WORKDIR /usr/src/app
 
 # TODO: Frontend
-COPY --chown=node:node backend/package*.json ./backend
+COPY --chown=node:node backend/package*.json ./backend/
 
 # TODO: Frontend
 COPY --chown=node:node --from=development /usr/src/app/backend/node_modules ./backend/node_modules
