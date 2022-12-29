@@ -12,7 +12,7 @@ WORKDIR /usr/src/app
 # TODO: Frontend
 COPY --chown=node:node backend/package*.json ./backend
 
-RUN ls -a . && ls -a ./backend
+RUN ls -a . && echo Hello && ls -a ./backend
 
 # TODO: Frontend
 # Install app dependencies
