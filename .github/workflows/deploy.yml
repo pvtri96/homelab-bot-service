@@ -6,10 +6,6 @@ on:
       - 'master'
       - 'pvtri96/fix-docker'
 
-defaults:
-  run:
-    working-directory: ./backend
-
 jobs:
   docker:
     runs-on: ubuntu-latest
