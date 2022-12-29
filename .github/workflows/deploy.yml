@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - 'master'
-      - 'pvtri96/fix-docker'
 
 jobs:
   docker:
