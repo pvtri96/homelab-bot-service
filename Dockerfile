@@ -10,7 +10,7 @@ FROM base AS development
 WORKDIR /usr/src/app
 
 # TODO: Frontend
-COPY --chown=node:node backend/package*.json ./backend
+COPY --chown=node:node backend/package*.json ./backend/
 
 RUN ls -a . && echo Hello && ls -a ./backend
 
