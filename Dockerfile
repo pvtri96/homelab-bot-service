@@ -14,7 +14,7 @@ COPY --chown=node:node backend/package*.json ./backend
 
 # TODO: Frontend
 # Install app dependencies
-RUN npm ci --prefix backend
+RUN npm ls -a backend && npm ci --prefix backend
 
 # Bundle app source
 COPY --chown=node:node . .
