@@ -12,9 +12,11 @@ WORKDIR /usr/src/app
 # TODO: Frontend
 COPY --chown=node:node backend/package*.json ./backend
 
+RUN ls -a . && ls -a ./backend
+
 # TODO: Frontend
 # Install app dependencies
-RUN ls -a ./backend && npm ci --prefix ./backend
+RUN npm ci --prefix ./backend
 
 # Bundle app source
 COPY --chown=node:node . .
