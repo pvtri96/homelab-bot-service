@@ -28,7 +28,7 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/schedule": "^3.0.0",
     "@types/dockerode": "^3.3.14",
-    "dockerode": "^3.3.4",
+    "dockerode": "^4.0.0",
     "node-telegram-bot-api": "^0.63.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^5.0.0",
