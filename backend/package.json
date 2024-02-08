@@ -30,7 +30,7 @@
     "@types/dockerode": "^3.3.14",
     "dockerode": "^4.0.0",
     "node-telegram-bot-api": "^0.64.0",
-    "reflect-metadata": "^0.1.13",
+    "reflect-metadata": "^0.2.0",
     "rimraf": "^5.0.0",
     "rxjs": "^7.2.0",
     "systeminformation": "^5.16.3",
