@@ -29,7 +29,7 @@
     "@nestjs/schedule": "^4.0.0",
     "@types/dockerode": "^3.3.14",
     "dockerode": "^4.0.0",
-    "node-telegram-bot-api": "^0.65.0",
+    "node-telegram-bot-api": "^0.66.0",
     "reflect-metadata": "^0.2.0",
     "rimraf": "^5.0.0",
     "rxjs": "^7.2.0",
