@@ -42,7 +42,7 @@
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
     "@types/express": "^5.0.0",
-    "@types/jest": "29.5.13",
+    "@types/jest": "29.5.14",
     "@types/node": "^18.0.0",
     "@types/node-telegram-bot-api": "^0.64.0",
     "@types/supertest": "^6.0.0",
